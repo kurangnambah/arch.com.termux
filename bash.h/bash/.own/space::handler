@@ -1,0 +1,27 @@
+#!/bin/bash
+__init(){
+echo "[::?] × handler files to save your [ files / directory .. ] .. .×."
+echo ":: [ ~/ ] pick one to show about information [ .? ]"
+echo ":: [backup] remote backup save your files [::online] ::/backup"
+read -r -p "[ backup/no-default ] : " slect
+case $slect in
+backup)
+init_() {
+echo ":: [ ~/ ] pick one to backup / save your files [::services-storage] [ .> ]"
+echo ":: [ rsync ] .> using rsync ::/rsync"
+read -r -p "[ rsync/no-default ] " use
+case $use in
+rsync)
+init__(){
+rsync -avz -e "ssh " /path/to/yourfile user@backupserver.com:/backup/
+echo "backup for $(date) " | mail -s "backup complete" user@youremail.com
+}
+init__
+exit;;
+esac
+}
+init_
+exit;;
+esac
+}
+__init

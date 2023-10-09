@@ -1,0 +1,18 @@
+#!/bin/bash
+__init(){
+echo "[×/√] × check someone .. no_internet_connection ? no problem .×."
+echo ":: [ ~/ ] pick one to check someone [ ×√× ]"
+echo ":: [wh..]     checking session process     ::/wheater"
+echo ":: [root]     checking root device          ::/root"
+echo ":: [cpu]      component process unit check ::/cpu"
+echo ":: [hardware] hardware check [option]      ::/hardware"
+read -r -p "[root/cpu/folder/no-default] : " sleck
+case $sleck in
+pid)
+init_(){
+
+}
+exit;;
+esac
+}
+

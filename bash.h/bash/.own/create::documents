@@ -1,0 +1,39 @@
+#!/bin/bash
+
+__init() {
+echo "[P::] ::/documents × lets create .. [quickly] .×."
+echo ":: [ ~/ ] pick one to create new project [x::]"
+echo ":: [sheet]  create new sheet .. ::/sheet"
+echo ""
+read -r -p "[sheet/no-default] : " slect
+case $slect in
+sheet)
+read -r -p "[:-_] \0-9/ × input type number  .×. [ N° ] COLUMN .-> " col
+read -r -p "[:-_] \0-9/ × input type number  .×. [ N° ] ROW .-> " rowse
+
+x=0
+y=0
+echo -n "::"
+#  table=$((i * no))
+while [ $x -ne $col ]; do
+if [[ $x -le $col ]]
+ then
+  x=$((x + 1))
+  column=$((x))
+  echo -n "$column"
+fi
+done
+
+while [ $y -ne $rowse ]; do
+if [[ $y -le $rowse ]]
+ then
+  y=$((y + 1))
+  row=$((y))
+  echo "$row"
+fi
+done
+
+exit;;
+esac
+}
+__init

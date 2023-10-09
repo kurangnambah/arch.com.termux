@@ -1,0 +1,139 @@
+#!/bin/bash
+__init(){
+echo "[::?] × get's more information that will be execution .×."
+echo ":: [ ~/ ] pick one to show about information [ .? ]"
+echo ":: [health] show health ..   ::/health"
+echo ":: [file]   show file type   ::/file"
+echo ":: [.ext]   show files line  ::/lines"
+echo ":: [folder] show folder size ::/folder"
+echo ":: [send]   show file type   ::/send"
+echo ":: [perm]   show file type   ::/perm"
+read -r -p "[file/lines/folder/send/no-default] : " sleck
+case $sleck in
+health)
+date
+echo "uptime:"
+uptime
+echo "Currently connected:"
+w
+echo "--------------------"
+echo "Last logins:"
+last -a | head -3
+echo "--------------------"
+echo "Disk and memory usage:"
+df -h | xargs | awk '{print "Free/total disk: " $11 " / " $9}'
+free -m | xargs | awk '{print "Free/total memory: " $17 " / " $8 " MB"}'
+echo "--------------------"
+start_log=$(head -1 /var/log/messages | cut -c 1-12)
+oom=$(grep -ci kill /var/log/messages)
+echo -n "OOM errors since $start_log :" $oom
+echo ""
+echo "--------------------"
+echo "Utilization and most expensive processes:"
+top -b | head -3
+echo
+top -b | head -10 | tail -4
+echo "--------------------"
+echo "Open TCP ports:"
+nmap -p -T4 127.0.0.1
+echo "--------------------"
+echo "Current connections:"
+ss -s
+echo "--------------------"
+echo "processes:"
+ps auxf --width=200
+echo "--------------------"
+echo "vmstat:"
+vmstat 1 5
+exit;;
+file)
+read -r -p "[::/?] [ selected_file ] write file path / directory .. : " FILE
+if [ -e "$FILE" ]; then
+  if [ -f "$FILE" ]; then
+    echo "$FILE is a regular file."
+  fi
+  if [ -d "$FILE" ]; then
+    echo "$FILE is a directory."
+  fi
+  if [ -r "$FILE" ]; then
+     echo "$FILE is readable."
+  fi
+  if [ -w "$FILE" ]; then
+     echo "$FILE is writable."
+  fi
+  if [ -x "$FILE" ]; then
+     echo "$FILE is executable/searchable."
+  fi
+else
+  echo "$FILE does not exist"
+  exit 1
+fi
+exit
+exit;;
+lines)
+init_(){
+ read -r -p "[::/?] [ * / selected_file ] write file path / directory .. : " path
+ wc -l $path
+}
+init_
+exit;;
+folder)
+init_(){
+ read -r -p "[::/?] [ * / selected_file ] write folder path directory .. : " path
+ du -sh $path
+}
+init_
+exit;;
+send)
+init_(){
+ echo ":: [ ~/ ] pick one to send information [ :v: ]"
+ echo ":: [disk] send disk space information ::/disk"
+ read -r -p "[disk/no-default] : " pck
+ case $pck in
+ disk)
+  echo ":: [ ~/ ] pick one [::via] to send .. [ .> ]"
+  echo ":: [email] .> with email ::/email"
+  read -r -p "[email/no-default] : " snder
+  case $snder in
+  email)
+  MAX=95
+  EMAIL=server@127.0.0.1
+  PART=sda1
+  USE=$(df -h | grep $PART | awk '{ print $5 }' | cut -d'%' -f1)
+  if [[ $USE -gt $MAX ]]
+   then
+    echo "Percent used: $USE" | mail -s "Running out of disk space" $EMAIL
+  fi
+  exit;;
+  esac
+ exit;;
+ esac
+}
+init_
+exit;;
+perm)
+ echo ":: [ ~/ ] pick to show [perm::] list-ing [ :v: ]"
+ echo ":: [owner] show / check-ing list-ing owner ::/owner"
+ read -r -p "[owner/no-default] : " slect
+ case $slect in
+ owner)
+  echo ":: [ ~/ ] pick to show [perm::] list-ing [ :v: ]"
+  echo ":: [show] show list-ing of owner-ship :)  [ directory / folder / file ] ::/show"
+  echo ":: [find] find .. show the owner [::perm] [ directory / folder / file ] ::/find"
+  read -r -p "[show/find/no-default] : " opslyk
+  case $opslyk in
+  show)
+   read -r -p "[::/?] [ * / selected_file ] write file path / directory .. : " path
+   stat -c %U $path | sort -u
+   exit;;
+  find)
+   read -r -p "[::/?] [ * / selected_file ] write file path / directory .. : " path
+   find $path -printf '%u:%g\n' | sort -t: -u
+  exit;;
+ esac
+ exit;;
+ esac
+exit;
+esac
+}
+__init

@@ -1,0 +1,34 @@
+#!/usr/bin/bash
+__init(){
+echo "[•••] × file is never used .. letsa .. lets [::archive] "
+echo ":: "
+echo ":: [ ~/ ] pick your option to [::archiving] .. .-v"
+echo ":: :/encrypt: lets encrypt it .."
+echo ":: :/decrypt: lets decrypt it .."
+echo ":: "
+read -r -p "[encrypt/no-default] : " letsn
+echo ":: "
+echo ":: [ .-> ] select your option to :archiving [::pkg] .. .-v"
+echo ":: [ vers ]  gpg  --pkg::gnupg .. ::/gpg"
+echo "::"
+read -r -p "[gpg/no-default] : " slect
+case $slect in
+gpg)
+case $letsn in
+encrypt)
+read -r -p "[::/?] [ file_name.ext ] write file_name specified before ://path.. [::/]: " nme
+read -r -p "[::/?] [ navigate ] write file path / directory .. : " path
+tar -czvf "$nme" "$path"
+gpg -c "$nme"
+rm -rf "$nme"
+exit;;
+decrypt)
+read -r -p "[::/?] [ file_name.ext ] write file_name specified .. [::/]: " nme
+read -r -p "[::/?] [ path/file_name.ext ] write ::path/file_name.ext specified .. [::/]: " path
+gpg -d $path > $nme
+exit;;
+esac
+exit;;
+esac
+}
+__init

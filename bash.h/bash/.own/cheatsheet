@@ -1,0 +1,22 @@
+#!/bin/bash
+init__(){
+echo "[:=-] × tell me how to show'n .x. [ cheatsheet ]"
+echo "::"
+echo ":: [ ~/ ]  pick your option take a of show'n .. .->"
+echo ":: :/unicode: unicode cheatsheet  --10× "
+echo "::"
+read -r -p "[unicode/no-default] : " shown
+case $shown in
+unicode)
+echo "
+UNICODE CHEATSHEET
+:: enter \n   :: ¯ \UAF   :: ★ \xe2\x98\x85   :: 0.00, .00 %.2f
+              :: ° \uB1   :: ¬ \UAC\U85\U85
+              :: ± \uB2
+              :: ² \uB3
+              :: ³ \uB4
+"
+exit;;
+esac
+}
+init__

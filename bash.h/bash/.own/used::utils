@@ -1,0 +1,74 @@
+#!/usr/bin/bash
+__init(){
+echo "[::?] × get's more utility .. [::pkg/package] .×."
+echo ":: [ ~/ ] pick one to used utility [ .? ]"
+echo ":: [uptime]  show'n time format              [::format]   ::/uptime"
+echo ":: [compare] all'ts know'n about the compare [::/utils]   ::/compare"
+read -r -p "[ uptime/no-default ] : " slect
+case $slect in
+uptime)
+init_() {
+echo ":: [ ~/ ] pick one to used uptime [::format] .. [ .> ]"
+echo ":: [ default ] .>  default format  ::uptime  ::/default"
+echo ":: [ avg ]     .>  load average    ::uptime  ::/avg"
+read -r -p "[ avg / default ] " formt
+case $formt in
+avg)
+init__(){
+ uptime | sed -le 's/^.*: \(.*\)$/\1/'
+}
+init__
+exit;;
+*)
+init__(){
+ uptime
+}
+init__
+exit;;
+esac
+}
+init_
+compare)
+init_() {
+echo ":: [ ~/ ] pick one to if you need compare .. [ .> ]"
+echo ":: [ version ] .>  version compare  ::install  ::/version"
+echo ""
+read -r -p "[ version / no-default ] " cmpre
+case $cmpre in
+version)
+init__(){
+read -r -p "[:v?] [ navigate ] write version one you need compare .. : " ver1
+read -r -p "[:v?] [ navigate ] write version two you need compare .. : " ver2
+VERSION=$ver1
+VERSION2=$ver2
+function version_gt() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; }
+function version_le() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" == "$1"; }
+function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$1"; }
+function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$1"; }
+if version_gt $VERSION $VERSION2; then
+        echo "$VERSION is greater than $VERSION2"
+fi
+
+if version_le $VERSION $VERSION2; then
+        echo "$VERSION is less than or equal to $VERSION2"
+fi
+
+if version_lt $VERSION $VERSION2; then
+        echo "$VERSION is less than $VERSION2"
+fi
+
+if version_ge $VERSION $VERSION2; then
+        echo "$VERSION is greater than or equal to $VERSION2"
+fi
+}
+init__
+exit;;
+*)
+exit;;
+esac
+}
+init_
+exit;;
+esac
+}
+__init

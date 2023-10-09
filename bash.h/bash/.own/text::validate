@@ -1,0 +1,27 @@
+#!/bin/bash
+init_() {
+read -r -p "[::_] .×> write your text here .. \a-z/A-Z\0-9/ " char
+function alpha_only() { test "$(echo "$@" | tr "a-zA-Z" "\n"| sort -V | head -n 1)" != $char; }
+function num_only() { test "$(echo "$@" | tr "0-9" "\n"| sort -V | head -n 1)" != $char; }
+function alpha_uppercase() { test "$(echo "$@" | tr "A-Z" "\n"| sort -rV | head -n 1)" != $char; }
+function alpha_lowercase() { test "$(echo "$@" | tr "a-z" "\n"| sort -rV | head -n 1)" != $char; }
+if [[ $char == "" ]]
+then
+clear;
+init_
+else
+if alpha_only $char; then
+   echo "$char is alpha only format"
+fi
+if num_only $char; then
+   echo "$char is N° only format"
+fi
+if alpha_lowercase $char; then
+   echo "$char is lowercase format"
+fi
+if alpha_uppercase $char; then
+   echo "$char is uppercase format"
+fi
+fi
+}
+init_

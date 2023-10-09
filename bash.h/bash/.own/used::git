@@ -1,0 +1,175 @@
+#!/bin/bash
+__init(){
+echo "[git] ::git zero syntax .. /#/$/ [ 0 ]"
+echo ":: [ ~/ ] -- pick one to run -- [ / ]"
+echo ":: ::/config  -- git configuration [set]"
+echo ":: ::/commit  -- git commit        [commit]"
+echo ":: ::/find    -- git find          [find]"
+echo ":: ::/stat    -- git status        [stat]"
+echo ":: ::/update  -- git update        [update]"
+read -r -p "[config/find/stat/update/no-default] : " slect
+case $slect in
+config)
+init_(){
+echo "Write your git username"
+read USER
+DEFAULT_EMAIL="$USER@users.noreply.github.com"
+read -p "Write your git email [Press enter to accept the private email $DEFAULT_EMAIL]: " EMAIL
+EMAIL="${EMAIL:-${DEFAULT_EMAIL}}"
+echo "Configuring global user name and email..."
+git config --global user.name "$USER"
+git config --global user.email "$EMAIL"
+echo "Configuring global aliases..."
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.br branch
+git config --global alias.co checkout
+git config --global alias.last 'log -1 HEAD'
+git config --global alias.sub "submodule update --remote --merge"
+git config --global core.editor "vim"
+git config --global credential.helper 'cache --timeout=36000'
+read -r -p "Do you want to add ssh credentials for git? [y/n] " RESP
+RESP=${RESP,,}    # tolower (only works with /bin/bash)
+CHECK_KEY_ED_EXISTS="$HOME/.ssh/id_ed25519.pub"
+if [[ $RESP =~ ^(yes|y)$ ]] && ! test -f "$CHECK_KEY_ED_EXISTS"
+then
+    echo "Configuring git ssh access..."
+    ssh-keygen -t ed25519 -C "$EMAIL"
+    echo "This is your public key. To activate it in github, got to settings, SHH and GPG keys, New SSH key, and enter the following key:"
+    cat ~/.ssh/id_ed25519.pub
+    echo -e "\nTo work with the ssh key, you have to clone all your repos with ssh instead of https. For example, for this repo you will have to use th"
+elif [[ $RESP =~ ^(yes|y)$ ]] && test -f "$CHECK_KEY_ED_EXISTS"
+then
+    echo "You have already ssh-key. To activate it in github, got to settings, SHH and GPG keys, New SSH key, and enter the following key:"
+    cat ~/.ssh/id_ed25519.pub
+fi
+if [ "$(uname)" == "Darwin" ]; then # Mac OS X platform
+    echo "Setting autocompletion"
+    AUTOCOMPLETION_URL="https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash"
+    AUTOCOMPLETION_PATH=/opt/local/etc/bash_completion.d
+    AUTOCOMPLETION_SCRIPT=git-completion.bash
+    mkdir -p $AUTOCOMPLETION_PATH
+    curl -o $AUTOCOMPLETION_PATH/$AUTOCOMPLETION_SCRIPT $AUTOCOMPLETION_URL
+    source $AUTOCOMPLETION_PATH/$AUTOCOMPLETION_SCRIPT
+    echo "source $AUTOCOMPLETION_PATH/$AUTOCOMPLETION_SCRIPT" >> ~/.bash_profile
+fi
+echo ""
+echo "git configured"
+}
+init_
+exit;;
+commit)
+# # Grab input variables
+while getopts u:e:t: flag
+do
+    case "${flag}" in
+        u) GITHUB_USERNAME=${OPTARG};;
+        e) GITHUB_EMAIL=${OPTARG};;
+        t) GITHUB_TOKEN=${OPTARG};;
+    esac
+done
+
+echo "Github Username: $GITHUB_USERNAME"
+echo "Github Email: $GITHUB_EMAIL"
+echo "Github Token: $GITHUB_TOKEN"
+
+git config --global user.email ${GITHUB_EMAIL}
+git config --global user.name ${GITHUB_USERNAME}
+
+# # Set variables for the script
+GITHUB_ORIGIN="https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/kommit-king.git"
+SCRIPT_DIR=$( dirname -- "$( readlink -f -- "$0"; )"; )
+FILE_PATH="$SCRIPT_DIR/kommit.sh"
+RUN_EVERY='*/10 * * * *'
+CRONJOB="$RUN_EVERY $FILE_PATH -u ${GITHUB_USERNAME} -t ${GITHUB_TOKEN}"
+NOW=$(date +"%Y%m%d%H%M%S")
+CRONTAB=$(crontab -l)
+
+cd $SCRIPT_DIR
+if [[ "$CRONTAB" == *"$CRONJOB"* ]]; 
+then
+  echo "Doing nothing (:"
+else
+    # # Cron has not been set. First run
+    ##### ##### ##### #####  #####  #####
+    # # Grant permissions to the script
+    sudo chmod +x $FILE_PATH
+    # Create the privatre repo
+    gh repo create kommit-king --private
+    git init
+    # # Add cronjob to crontab
+    crontab -l > mycron
+    echo "$CRONJOB">> mycron
+    crontab mycron
+    rm mycron
+fi
+
+
+# # Delete the line with the time
+sed -i '' -e '$ d' kommit.sh
+# # Add the current time to the bottom
+sh -c "echo '# $NOW' >> kommit.sh"
+
+# # Just incase a seperate origin was set
+git remote remove origin
+git remote add origin "${GITHUB_ORIGIN}"
+
+# # Add new changes & commit them & push them
+git add .
+git commit -m $NOW
+git branch -M main
+git push -u origin main --force
+
+
+# 20220927203000
+# 20231004142001
+exit;;
+find)
+IFS=$'\n';
+# list all objects including their size, sort by size, take top 20
+objects=`git verify-pack -v .git/objects/pack/pack-*.idx | grep -v chain | sort -k3nr | head -n 20`
+echo "All sizes are in MB. The pack column is the size of the object, compressed, inside the pack file."
+output="size,pack,SHA,location"
+for y in $objects
+do
+   # extract the size in bytes
+   size=$((`echo $y | cut -f 5 -d ' '`/1024/1024))
+   # extract the compressed size in bytes
+   compressedSize=$((`echo $y | cut -f 6 -d ' '`/1024/1024))
+   # extract the SHA
+   sha=`echo $y | cut -f 1 -d ' '`
+   # find the objects location in the repository tree
+   other=`git rev-list --all --objects | grep $sha`
+   #lineBreak=`echo -e "\n"`
+   output="${output}\n${size},${compressedSize},${other}"
+done
+echo $output | column -t -s ', '
+exit;;
+stat)
+USER="ngengkeng"
+#declare folders
+declare -a arr=("sciblog" "scripts" "twitter_bot")
+echo "Git state repos of user $USER ......."
+for i in ${arr[@]}
+do
+ cd $i
+ echo "STATE REPO: $i"
+ git status
+ cd ..
+done
+exit;;
+update)
+USER="wleuwleu"
+#declare folders
+declare -a arr=("sciblog" "scripts" "twitter_bot")
+echo "Updating git repos of user $USER ......."
+for i in ${arr[@]}
+do
+        cd $i
+        echo "Updating repo $i"
+        git pull
+        cd ..
+done
+exit;;
+esac
+}

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+IFS=""
+vlu=0
+crr=("Test" "Test1")
+#cyp=()
+
+declare -A crrk
+for arr in "${crr}"; do crrk[$arr]=1 ; done
+[ "${crrk[${crr[!crr]}]}" ] && set 'crr[k]'
+for condt in "${crr[@]}" ; do
+  echo $condt $vlu
+done

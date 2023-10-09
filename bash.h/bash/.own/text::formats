@@ -1,0 +1,31 @@
+#!/usr/bin/bash
+
+lowercase(){
+echo -n "Enter String Uppercase: "
+read -r i
+echo "$i" | tr '[:upper:]' '[:lower:]'
+}
+display_echo(){
+row=0
+col=$(( ($(tput cols) - ${#text}) / 2))
+tput clear
+tput cup $row $col
+echo "$text
+}
+display_center(){
+COLUMNS=$(tput cols)
+title="Hello world!"
+printf "%*s\n" $(((${#title}+$COLUMNS)/2)) "$title"
+}
+display_center2(){
+    columns="$(tput cols)"
+    while IFS = read -r line; do
+        printf "%*s\n" $(( (${#line} + columns) / 2)) "$line"
+    done < "$1"
+}
+display_right(){
+    columns="$(tput cols)"
+    while IFS = read -r line; do
+        printf "%*s\n" $columns "$line"
+    done < "$1"
+}

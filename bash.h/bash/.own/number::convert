@@ -1,0 +1,96 @@
+#!/bin/bash
+init__(){
+read -r -p "[010] \0-9/ × know'n that .. this case all about /start with [ _N° ] " no
+echo ":: [ ~/ ] :_N°  pick your option to convert .. \/\v/\/"
+echo ":: :/bin: :101 _ decimal to binary --10× "
+echo ":: :/hex: :0x0 _ decimal to hex --1× "
+read -r -p "[bin/hex/no-default] : " letsa
+case $letsa in
+bin)
+for (( i = 32; i >= 0; i-- )); do
+        r=$((2 ** i))
+        Probablity+=($r)
+done
+[[ $no -eq 0 ]] && {
+       echo -e "Usage \n \t $no numbers"
+       exit 1
+}
+echo -en "Decimal\t\tBinary\n"
+printf "%-10s\t" "$no"
+test ${#input_int} -gt 11 && {
+  echo "Support Upto 10 Digit number :: skiping \"$input_int\""
+  continue
+}
+convert_(){
+for input_int in $no; do
+        s=0
+        for n in ${Probablity[@]}; do
+
+                if [[ $input_int -lt $n ]]; then
+                        [[ $s == 1 ]] && printf "%d" 0
+                else
+                        echo -n 1
+                        s=1
+                        input_int=$((input_int - n))
+                fi
+        done
+        echo -e
+done
+}
+convert_
+otp=$( convert_ )
+_try(){
+read -r -p "[•••] \101/ × if you .. get come, get back your N° /anything [ y/N ] " resp
+case $resp in
+y | Y | yes )
+if [[ $otp -eq 0 ]]; then
+        lecho "binary number not valid "
+        return
+else
+        while [[ $otp -ne 0 ]]; do
+                decimal=0
+                power=1
+                while [[ $otp -ne 0 ]]; do
+                        rem=$((otp % 10))
+                        decimal=$((decimal + (rem * power)))
+                        power=$((power * 2))
+                        otp=$((otp / 10))
+                done
+                echo "$decimal"
+        done
+fi
+;;
+n | N | no )
+exit;
+;;
+*)
+_try;
+;;
+esac
+}
+_try
+exit;;
+hex)
+printf "0x%x\n" "$no"
+read -r -p "[•••] \0x0/ × if you .. get come, get back your N° /anything [ y/N ] " resp
+case $resp in
+y | Y | yes )
+# hex to dec
+printf "%d\n " "$no"
+;;
+n | N | no )
+exit;
+;;
+*)
+_try;
+;;
+esac
+exit;;
+*)
+clear;
+init__
+;;
+esac
+}
+init__
+

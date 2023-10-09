@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+function PWD_alt() {
+set -- *
+ for i; do
+  echo "$i"
+ done
+}
+__init(){
+echo "[::&] × alter .. bash command built-in .×."
+echo "::"
+echo ":: [back] .. cd with number .. ::/back"
+echo "::"
+read -r -p "[::×] [ back / no-default ]: " slect
+case $slect in
+back)
+echo "::"
+read -r -p "[::_] × \0-9/ input type of number .. -> " num
+for ((i = 0; i < $num; i++)); do
+ echo $i
+ Alt_Cd=../$Alt_Cd
+done
+cd $Alt_Cd
+echo "info: "$PWD_alt
+sh=$($SHELL)
+exec $sh
+exit;;
+esac
+}
+__init

@@ -1,0 +1,186 @@
+#!/bin/bash
+__init(){
+echo "[×/√] × check someone .. no_internet_connection ? no problem .×."
+echo ":: [ ~/ ] pick one to check someone [ ×√× ]"
+echo ":: [pid]      checking session process     ::/pid"
+echo ":: [root]     checking root device         ::/root"
+echo ":: [cpu]      component process unit check ::/cpu"
+echo ":: [hardware] hardware check [option]      ::/hardware"
+read -r -p "[root/cpu/folder/no-default] : " sleck
+case $sleck in
+pid)
+if hash ps
+ then
+ ps
+fi
+exit;;
+root)
+if [ "$(id -u)" != 0 ]; then
+  echo "This script must be run as root. 'sudo bash $0'"
+  exit 1
+fi
+exit;;
+cpu)
+init_(){
+MAX=95
+EMAIL=server@127.0.0.1
+USE=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage ""}')
+if [[ $USE -gt $MAX ]]
+ then
+ echo "Percent used: $USE" | mail -s "Running out of CPU power" $EMAIL
+fi
+}
+init_
+exit;;
+hardware)
+function menuprincipal () {
+clear
+TIME=1
+echo " "
+echo $0
+echo " "
+echo "Choose an option below!"
+echo "1 - Verify desktop processor"
+echo "2 - Verify system kernel"
+echo "3 - Verify installed softwares"
+echo "4 - Operation system version"
+echo "5 - Verify desktop memory"
+echo "6 - Verify serial number"
+echo "7 - Verify system IP"
+echo "0 - Exit"
+echo " "
+echo -n "Chosen option: "
+read opcao
+case $opcao in
+1)
+function processador () {
+  CPU_INFO=$( cat /proc/cpuinfo | grep -i "^model name" | cut -d ":" -f2 | sed -n '1p' )
+  echo "CPU model: $CPU_INFO"
+  sleep $TIME
+}
+  processador
+  read -n 1 -p "<Enter> for main menu"
+  menuprincipal
+;;
+2)
+function kernel () {
+  #RED HAT: cat /etc/redhat-release
+  KERNEL_VERSION_UBUNTU=$( uname -r )
+  KERNEL_VERSION_CENTOS=$( uname -r )
+if [ -f /etc/lsb-release ]
+  then
+   echo "kernel version: $KERNEL_VERSION_UBUNTU"
+  else
+   echo "kernel version: $KERNEL_VERSION_CENTOS"
+fi
+}
+  kernel
+  read -n -p "<Enter> for main menu" 1
+  menuprincipal
+;;
+3)
+function softwares () {
+while true; do
+  TIME=3
+  echo " "
+  echo "Choose an option below for programs list!"
+  echo "1 - List Ubuntu programs"
+  echo "2 - List Fedora programs"
+  echo "3 - Install programs"
+  echo "4 - Back to menu"
+  echo " "
+  echo -n "Chosen option: "
+  read alternative
+  case $alternative in
+  1)
+  echo "Listing all programs Ubuntu systems..."
+  sleep $TIME
+  dpkg -l > /tmp/programs.txt
+  echo "Programs listed and available at /tmp"
+  sleep $TIME
+  echo " "
+  echo "Back to menu!" | tr [a-z] [A-Z]
+  sleep $TIME
+  ;;
+  2)
+  echo "Listing all programs Fedora systems..."
+  sleep $TIME
+  yum list installed > /tmp/programs.txt
+  echo "Programs listed and available at /tmp"
+  sleep $TIME
+  ;;
+  3)
+  echo "Installing programss..."
+  LIST_OF_APPS="pinta brasero gimp vlc inkscape blender filezilla"
+  #use aptitude command for programs loop.
+  apt install aptitude -y
+  aptitude install -y $LIST_OF_APPS
+  ;;
+  4)
+  echo "Back to main menu..."
+  sleep $TIME
+  ;;
+  esac
+ done
+}
+  softwares
+  menuprincipal;;
+4)
+  function sistema () {
+  VERSION=$( cat /etc/os-release | grep -i ^PRETTY )
+  if [ -f /etc/os-release ]
+   then
+    echo "The system version: $VERSION"
+   else
+    echo "System not supported"
+  fi
+  }
+  sistema
+  read -n -p "<Enter> for main menu" 1
+  menuprincipal
+;;
+5)
+function memory () {
+  MEMORY_FREE=$( free -m  | grep ^Mem | tr -s ' ' | cut -d ' ' -f 4 )
+  #MEMORY_TOTAL=
+  #MEMORY_USED=
+  echo "Verifying system memory..."
+  echo "Memory free is: $MEMORY_FREE"
+}
+  memory
+  read -n -p "<Enter> for main menu" 1
+  menuprincipal
+;;
+6)
+  function serial () {
+    SERIAL_NUMBER=$( dmidecode -t 1 | grep -i serial )
+    echo "$SERIAL_NUMBER"
+  }
+  serial
+  read -n -p "<Enter> for main menu" 1
+  menuprincipal
+;;
+7)
+  function ip () {
+    IP_SISTEMA=$( hostname -I )
+    echo "IP is: $IP_SISTEMA"
+  }
+  ip
+  read -n -p "<Enter> for main menu" 1
+  menuprincipal
+;;
+0)
+ echo "Exiting the system..."
+ sleep $TIME
+ exit
+;;
+*)
+ echo "Invalid option, try again!"
+;;
+esac
+}
+menuprincipal
+exit;;
+esac
+}
+__init

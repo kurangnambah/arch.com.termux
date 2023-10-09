@@ -1,0 +1,395 @@
+#!/bin/bash
+_init(){
+echo "[•\×] × wanna skluk sgrug scrup scrapppps .-v"
+echo ":: [ .-> ] pick one to wanna scraps [ .? ]"
+echo ":: [emoji]       get's random emoji ..    ::/emoji"
+echo ":: [charset]    get's random charset ..   ::/charset"
+echo ":: [color]       get's random color ..    ::/color"
+echo ":: [unicode]    get's random unicode ..   ::/unicode"
+echo ":: [unicode]  get's random unicode two .. ::/unicode2"
+echo "::"
+read -r -p "[emoji/charset/color/unicode/unicode2/no-default] : " sleck
+__random(){
+while true; do
+rndm_lc=$(cat /dev/urandom | tr -dc 'a-z' | fold -w 256 | head -n 1 | head --bytes 1)
+# ONE DIGIT
+onedig=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1)
+# TWO DIGITS
+twodig=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 2)
+# THREE DIGITS
+threedig=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 3)
+#
+#ALPHA
+rndm_lc3=$(cat /dev/urandom | tr -dc  'a-z' | fold -w 3 | head -n 1)
+#ALPHANUM
+rndm_alphanum1=$(cat /dev/urandom | tr -dc 'A-Z0-9' | fold -w 1 | head -n 1)
+rndm_alphanum2=$(cat /dev/urandom | tr -dc 'A-Z0-9' | fold -w 2 | head -n 1)
+rndm_alphanum3=$(cat /dev/urandom | tr -dc 'A-Z0-9' | fold -w 3 | head -n 1)
+rndm_alphanum4=$(cat /dev/urandom | tr -dc 'A-Z0-9' | fold -w 4 | head -n 1)
+rndm_alphanum5=$(cat /dev/urandom | tr -dc 'A-Z0-9' | fold -w 5 | head -n 1)
+rndm_alphanum6=$(cat /dev/urandom | tr -dc 'A-Z0-9' | fold -w 6 | head -n 1)
+SLASH='\'
+PATH_UNICODE=$SLASH$rndm_lc
+RESYNC_PATH=$PATH_UNICODE
+PATH_SLASH_REMOVE=$PATH_UNICODE
+ALPHA_NUM1=$RESYNC_PATH$rndm_alphanum1
+ALPHA_NUM2=$RESYNC_PATH$rndm_alphanum2
+ALPHA_NUM3=$RESYNC_PATH$rndm_alphanum3
+ALPHA_NUM4=$RESYNC_PATH$rndm_alphanum4
+ALPHA_NUM5=$RESYNC_PATH$rndm_alphanum5
+ALPHA_NUM6=$RESYNC_PATH$rndm_alphanum6
+if [ "$RESP1" == "" ]
+then
+ PATH_UNICODE=$SLASH$rndm_lc
+else
+PATH_UNICODE=$SLASH$RESP1
+fi
+#while true; do
+if [ $PATH_UNICODE == '\a' ];
+  then
+   PATH_SLASH_REMOVE='-a'
+   RESYNC_PATH='&a'
+fi
+if [ $PATH_UNICODE == '\b' ];
+  then
+   PATH_SLASH_REMOVE='-b'
+   RESYNC_PATH='&b'
+fi
+if [ $PATH_UNICODE == '\c' ];
+  then
+   PATH_SLASH_REMOVE='-c'
+   RESYNC_PATH='&c'
+fi
+if [ $PATH_UNICODE == '\e' ];
+  then
+   PATH_SLASH_REMOVE='-e'
+   RESYNC_PATH='&e'
+fi
+if [ $PATH_UNICODE == '\f' ];
+  then
+   PATH_SLASH_REMOVE='-f'
+   RESYNC_PATH='&f'
+fi
+if [ $PATH_UNICODE == '\n' ];
+  then
+   PATH_SLASH_REMOVE='-n'
+   RESYNC_PATH='&n'
+fi
+if [ $PATH_UNICODE == '\r' ];
+  then
+   PATH_SLASH_REMOVE='-r'
+   RESYNC_PATH='&r'
+fi
+if [ $PATH_UNICODE == '\t' ];
+  then
+   PATH_SLASH_REMOVE='-t'
+   RESYNC_PATH='&t'
+fi
+if [ $PATH_UNICODE == '\v' ];
+  then
+   PATH_SLASH_REMOVE='-v'
+   RESYNC_PATH='&v'
+fi
+done
+}
+case $sleck in
+emoji )
+while true; do
+  rand=$(shuf -i 2600-2700 -n 1)
+  echo -en "   \u$rand"
+  sleep 1
+done
+exit;;
+charset )
+init_() {
+read -r -p "what you want to start unicode-charset::randomly ? [y/N]" RESP
+case $RESP in
+yes | yess | Y | y)
+selecting_() {
+echo -e "what you want to selecting path::charset ? \n"
+echo "::a [ \a ] ::e [ \e ] ::i [ \i ] ::m [ \m ] ::q [ \q ] ::u [ \u ] ::y [ \y ]"
+echo "::b [ \b ] ::f [ \f ] ::j [ \j ] ::n [ \n ] ::r [ \r ] ::f [ \f ] ::z [ \z ]"
+echo "::c [ \c ] ::g [ \g ] ::k [ \k ] ::o [ \o ] ::s [ \s ] ::w [ \w ]"
+echo "::d [ \d ] ::h [ \h ] ::l [ \l ] ::p [ \p ] ::t [ \t ] ::x [ \x ]"
+echo -e "\n"
+echo "[ e.g ]: u >> ::u start from \u"
+read -r -p "[ ( lowercase ) a-z/default=random ] : " RESP1
+__random
+if [ $RESP1 == ""]
+echo -e "unicode | one only | two dig | three dig |  four dig  |  five dig   |   six dig   "
+then
+RESP_HELPER="*"
+echo -e "charset |  \'$RESP_HELPER'-   | \'$RESP_HELPER'--  | \'$RESP_HELPER'---   |  \'$RESP_HELPER'----  |  \'$RESP_HELPER'-----  |   \'$RESP_HELPER'------  \n"
+else
+echo -e "charset |  \'$RESP1'-   | \'$RESP1'--  | \'$RESP1'---   |  \'$RESP1'----  |  \'$RESP1'-----  |   \'$RESP1'------  \n"
+fi
+init_func(){
+while true; do
+echo -e $RESYNC_PATH'['$onedig'm█ ▓ ▒ ░'$RESYNC_PATH'[m    '$RESYNC_PATH'['$onedig';'$twodig'm█ ▓ ▒ ░'$RESYNC_PATH'[m    '$RESYNC_PATH'['$twodig'm█ ▓ ▒ ░'$RESYNC_PATH'[m   '$RESYNC_PATH'['$onedig';'$threedig'm█ ▓ ▒ ░'$RESYNC_PATH'[m    '$RESYNC_PATH'['$threedig'm█ ▓ ▒ ░'$RESYNC_PATH'[m   '$RESYNC_PATH'['$twodig';'$threedig'm█ ▓ ▒ ░'$RESYNC_PATH'[m';
+echo  $RESYNC_PATH"["$onedig"m      "$RESYNC_PATH"["$onedig';'$twodig"m   "$RESYNC_PATH"["$twodig"m    "$RESYNC_PATH"["$onedig';'$threedig"m  "$RESYNC_PATH"["$threedig"m   "$RESYNC_PATH"["$twodig';'$threedig'm'
+echo  $RESYNC_PATH"[m       "$RESYNC_PATH"[m       "$RESYNC_PATH"[m      "$RESYNC_PATH"[m       "$RESYNC_PATH"[m      "$RESYNC_PATH"[m"
+echo  "unknown    unknown    unknown   unknown    unknown   unknown"
+echo  "    "
+  shift;
+  init_func;
+done
+}
+case $RESP1 in
+a)
+init_func;;
+b)
+init_func;;
+c)
+init_func;;
+d)
+init_func;;
+f)
+init_func;;
+g)
+init_func;;
+h)
+init_func;;
+i)
+init_func;;
+j)
+init_func;;
+k)
+init_func;;
+l)
+init_func;;
+m)
+init_func;;
+n)
+init_func;;
+o)
+init_func;;
+p)
+init_func;;
+q)
+init_func;;
+r)
+init_func;;
+s)
+init_func;;
+t)
+init_func;;
+u)
+init_func;;
+f)
+init_func;;
+w)
+init_func;;
+x)
+init_func;;
+y)
+init_func;;
+z)
+init_func;;
+"")
+init_func;;
+*)
+clear;
+selecting_;;
+esac
+}
+selecting_;
+init_;;
+no | N | n)
+exit;;
+*)
+clear; wait; init_;;
+esac
+}
+init_
+exit;;
+color)
+read -r -p "::.. generate new random color -x- [ x ]" callback
+init_(){
+__random
+init_case(){
+case $1 in
+*)
+echo -e '\e['$onedig'm█ ▓ ▒ ░\e[m    \e['$onedig';'$twodig'm█ ▓ ▒ ░\e[m    \e['$twodig'm'█ ▓ ▒ ░'\e[m   \e['$onedig';'$threedig'm█ ▓ ▒ ░\e[m    \e['$threedig'm'█ ▓ ▒ ░'\e[m   \e['$twodig';'$threedig'm█ ▓ ▒ ░\e[m';
+echo  "\e["$onedig"m      \e["$onedig';'$twodig'm   \e['$twodig"m    \e["$onedig';'$threedig'm  \e['$threedig'm   \e['$twodig';'$threedig'm'
+echo  "\e[m       \e[m       \e[m      \e[m       \e[m      \e[m"
+echo  "unknown    unknown    unknown   unknown    unknown   unknown"
+echo  "       "
+shift;init_;;
+esac
+}
+init_case callback
+}
+init_
+exit;;
+unicode )
+init__() {
+read -r -p "what you want to start unicode-charset::randomly ? [y/N]" RESP
+case $RESP in
+yes | yess | Y | y)
+selecting_() {
+echo -e "what you want to selecting path::charset ? \n"
+echo "::u [ \u ] ::U [ \U ] ::x [ \x ]"
+echo -e "\n"
+echo "[ e.g ]: u >> ::u start from \u"
+read -r -p "[ ( lowercase / uppercase ) default=random ] : " RESP1
+__random
+if [ $RESP1 == ""]
+echo -e "unicode | one only | two dig | three dig |  four dig  |  five dig   |   six dig   "
+then
+RESP_HELPER="*"
+echo -e "charset |  \'$RESP_HELPER'-   | \'$RESP_HELPER'--  | \'$RESP_HELPER'---   |  \'$RESP_HELPER'----  |  \'$RESP_HELPER'-----  |   \'$RESP_HELPER'------  \n"
+else
+echo -e "charset |  \'$RESP1'-   | \'$RESP1'--  | \'$RESP1'---   |  \'$RESP1'----  |  \'$RESP1'-----  |   \'$RESP1'------  \n"
+fi
+init_func(){
+while true; do
+  echo -e "[$PATH_SLASH_REMOVE]\t ::"$ALPHA_NUM1"\t    ::"$ALPHA_NUM2"\t::"$ALPHA_NUM3"\t    ::"$ALPHA_NUM4"\t::"$ALPHA_NUM5"\t::"$ALPHA_NUM6"";
+  echo "           "$ALPHA_NUM1"        "$ALPHA_NUM2"        "$ALPHA_NUM3"       "$ALPHA_NUM4"      "$ALPHA_NUM5"         "$ALPHA_NUM6;
+  shift;
+  init_func;
+done
+}
+case $RESP1 in
+u)
+init_func;;
+U)
+init_func;;
+x)
+init_func;;
+"")
+init_func;;
+*)
+clear;
+selecting_;;
+esac
+}
+selecting_;
+init_;;
+no | N | n)
+exit;;
+*)
+clear; wait; init_;;
+esac
+}
+init__
+exit;;
+unicode2 )
+init_() {
+read -r -p "what you want to start unicode-charset::randomly ? [y/N]" RESP
+case $RESP in
+yes | yess | Y | y)
+selecting_() {
+echo -e "what you want to selecting path::charset ? \n"
+echo "::u [ \u ] ::U [ \U ] ::x [ \x ]"
+echo -e "\n"
+echo "[ e.g ]: u >> ::u start from \u"
+read -r -p "[ ( lowercase / uppercase ) default=random ] : " RESP1
+if [[ $RESP1 == "" ]]
+echo -e "unicode | one only | two dig | three dig |  four dig  |  five dig   |   six dig   "
+then
+RESP_HELPER="*"
+echo -e "charset |  \'$RESP_HELPER'-   | \'$RESP_HELPER'--  | \'$RESP_HELPER'---   |  \'$RESP_HELPER'----  |  \'$RESP_HELPER'-----  |   \'$RESP_HELPER'------  \n"
+else
+echo -e "charset |  \'$RESP1'-   | \'$RESP1'--  | \'$RESP1'---   |  \'$RESP1'----  |  \'$RESP1'-----  |   \'$RESP1'------  \n"
+fi
+init_func(){
+#ALPHA
+rndm_lc=$(cat /dev/urandom | tr -dc 'uUx' | fold -w 1 | head -n 1)
+rndm_lc3=$(cat /dev/urandom | tr -dc  'a-z' | fold -w 3 | head -n 1)
+#ALPHANUM
+rndm_alphanum2=$(cat /dev/urandom | tr -dc 'A-Z0-9' | fold -w 2 | head -n 1)
+rndm_num2=$(cat /dev/urandom | tr -dc '0-9' | fold -w 2 | head -n 1)
+# unicode charset
+# e.g:
+SLASH='\'
+PATH_UNICODE=$SLASH$rndm_lc
+RESYNC_PATH=$PATH_UNICODE
+PATH_SLASH_REMOVE=$PATH_UNICODE
+	if [ "$RESP1" == "" ]
+then
+ PATH_UNICODE=$SLASH$rndm_lc
+else
+ PATH_UNICODE=$SLASH$RESP1
+fi
+RESYNC_PATH=$PATH_UNICODE
+PATH_SLASH_REMOVE=$PATH_UNICODE
+if [ $PATH_UNICODE == '\a' ];
+  then
+   PATH_SLASH_REMOVE='-a'
+   RESYNC_PATH='&a'
+fi
+if [ $PATH_UNICODE == '\b' ];
+  then
+   PATH_SLASH_REMOVE='-b'
+   RESYNC_PATH='&b'
+fi
+if [ $PATH_UNICODE == '\c' ];
+  then
+   PATH_SLASH_REMOVE='-c'
+   RESYNC_PATH='&c'
+fi
+if [ $PATH_UNICODE == '\e' ];
+  then
+   PATH_SLASH_REMOVE='-e'
+   RESYNC_PATH='&e'
+fi
+if [ $PATH_UNICODE == '\f' ];
+  then
+   PATH_SLASH_REMOVE='-f'
+   RESYNC_PATH='&f'
+fi
+if [ $PATH_UNICODE == '\n' ];
+  then
+   PATH_SLASH_REMOVE='-n'
+   RESYNC_PATH='&n'
+fi
+if [ $PATH_UNICODE == '\r' ];
+  then
+   PATH_SLASH_REMOVE='-r'
+   RESYNC_PATH='&r'
+fi
+if [ $PATH_UNICODE == '\t' ];
+  then
+   PATH_SLASH_REMOVE='-t'
+   RESYNC_PATH='&t'
+fi
+if [ $PATH_UNICODE == '\v' ];
+  then
+   PATH_SLASH_REMOVE='-v'
+   RESYNC_PATH='&v'
+fi
+ALPHA_NUM2=$RESYNC_PATH$rndm_alphanum2$RESYNC_PATH$rndm_num2$RESYNC_PATH$rndm_num2
+while true; do
+  echo -e "[$PATH_SLASH_REMOVE]\t ::"$ALPHA_NUM2"\t::";
+  echo "        "$ALPHA_NUM2;
+  shift;
+  init_func;
+done
+}
+case $RESP1 in
+u)
+init_func;;
+U)
+init_func;;
+x)
+init_func;;
+"")
+init_func;;
+*)
+clear;
+selecting_;;
+esac
+}
+selecting_;
+init_;;
+no | N | n)
+exit;;
+*)
+clear; wait; init_;;
+esac
+}
+init_
+exit;;
+esac
+}
+_init

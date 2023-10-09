@@ -1,0 +1,55 @@
+#!/bin/bash
+__init(){
+echo "[::?] × get's more utility to manage your space .. .×."
+echo ":: [ ~/ ] pick one to show about information [ .? ]"
+echo ":: [find]   find file   [::by]   ::/file"
+echo ":: [mvc]    move folder [::mvc]  ::/mvc"
+read -r -p "[file/mvc/no-default] : " sleck
+case $sleck in
+find)
+read -r -p "[::/?] [ navigate ] write path directory .. : " path
+init_() {
+echo ":: [ ~/ ] pick one [::by] to find .. [ .> ]"
+echo ":: [ name ] .> find by name         ::/name"
+echo ":: [ ext. ] .> find by extension    ::/ext"
+read -r -p "[ ext ] " byu
+case $byu in
+name)
+init__(){
+read -r -p "[::/?] [ file_name ] write name to find .. : " nme
+if [ ! nme == "" ]
+then
+ find "$path" type f -name "$nme".
+fi
+}
+init__
+exit;;
+ext)
+init__(){
+read -r -p "[::/?] [ extension ] write name to find .. : " ext
+if [ ! ext == "" ]
+then
+ find "$path" type f -name "*.$ext".
+fi
+}
+init__
+exit;;
+esac
+}
+init_
+exit;;
+mvc)
+read -r -p "[::/?] [ navigate ] write path directory .. : " path
+init_(){
+    dir="$path" # Include a / at the end to indicate directory (not filename)
+    tmp="$path"; tmp="${tmp: -1}"
+    [ "$tmp" != "/" ] && dir="$(dirname "$path")"
+    [ -a "$dir" ] ||
+    mkdir -p "$dir" &&
+    mv "$@"
+}
+init_
+exit;;
+esac
+}
+__init

@@ -1,0 +1,81 @@
+#!/bin/bash
+__init(){
+echo "[::s] × styling collection pure bash .. .×."
+echo ":: [ ~/ ] pick one to show the collection [ .? ]"
+echo ":: [color]  text, color collection .. ::/color"
+echo ":: [loader]  load, loading, etc  ..   ::/load"
+echo ":: [resize]    resize character ..    ::/resize"
+read -r -p "[ color/load/resize/no-default ] : " slect
+case $slect in
+color)
+init_() {
+echo ":: [ ~/ ] pick one to show'n style color .. [ .> ]"
+echo ":: [ basic ] .>  basic color ..  ::/basic"
+echo ":: [ text ]  .>  coloring text   ::/text"
+read -r -p "[ basic / no-default ] " clor
+case $clor in
+basic)
+echo -e '\e[32m'█ ▓ ▒ ░'\e[m';
+echo  "\e[32m"
+echo  "\e[m'"
+echo  "GREEN"
+echo -e '\e[1;31m'█ ▓ ▒ ░'\e[m'; 
+echo  "\e[1;31m"
+echo  "\e[m"
+echo  "RED"
+exit;;
+text)
+read -r -p "[::_] .×> write your text here .. [::random-color] " char
+for c in 90 31 91 32 33 34 35 95 36 97; do
+   echo -en "\r \e[${c}m $char \e[0m "
+   sleep 1
+done
+exit;;
+esac
+}
+init_
+exit;;
+load)
+echo -e "afecth \n"
+arr=('-' '\' '|' '/')
+while true; do
+ for c in "${arr[@]}"; do
+   echo -n "    "
+   echo -en "\r $c"
+   sleep .5
+ done
+done
+echo "\n"
+exit;;
+resize)
+MAX_NO=0
+echo -n "Enter Number between (5 to 9) : "
+read MAX_NO
+if ! [ $MAX_NO -ge 5 -a $MAX_NO -le 9 ]; then
+        echo "WTF... I ask to enter number between 5 and 9, Try Again"
+        exit 1
+fi
+clear
+for ((i = 1; i <= MAX_NO; i++)); do
+        for ((s = MAX_NO; s >= i; s--)); do
+                echo -n " "
+        done
+        for ((j = 1; j <= i; j++)); do
+                echo -n " ."
+        done
+        echo ""
+done
+for ((i = MAX_NO; i >= 1; i--)); do
+        for ((s = i; s <= MAX_NO; s++)); do
+                echo -n " "
+        done
+        for ((j = 1; j <= i; j++)); do
+                echo -n " ."
+        done
+        echo ""
+done
+exit;;
+esac
+}
+__init
+

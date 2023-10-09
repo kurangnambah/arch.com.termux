@@ -1,0 +1,29 @@
+#!/bin/bash
+__init(){
+read -r -p "[::/?] [ file_name.ext ] write photo file name to use .. ::/photo-utility [::/]: " file
+echo "[ooo] × anything .. with photo utility .. [::photos] "
+echo ":: "
+echo ":: [ .-> ] [ "$file" ] pick someone .. .-v"
+echo ":: [:thumb:] create thumbnail .. ::/thumb"
+echo ":: "
+read -r -p "[thumb/no-default] : " letse
+case $letse in
+thumb)
+echo ":: "
+echo ":: [ .-> ] × select your option for ::/size [::thumbnails] .-v"
+echo ":: [ default ] default size for thumbnails .. ::/default"
+echo "::"
+read -r -p "[ default ] : " slect
+case $slect in
+default)
+for i in $file; do
+    convert "$i" -thumbnail 400 "thumbs/$i";
+done;
+exit;;
+esac
+exit;;
+esac
+}
+__init
+
+
