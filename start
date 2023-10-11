@@ -255,11 +255,11 @@ case $synt in
     exit 0
 ;;
 "add")
-read -r -p ":: [ whats ] ketik apa .. ditambahkan ? /add" adduh
+read -r -p ":: [ what ] whats are you wanna to .. added ? /add" adduh
 addTask "$adduh" && getTasks || exit 1
 ;;
 "remove")
-read -r -p ":: [ whats ] ketik apa .. dihapus ? /remove" remay
+read -r -p ":: [ what ] whats are you wan't to .. remove ? /remove" remay
 removeTask "$remay" && getTasks || exit 1
 ;;
 *)
