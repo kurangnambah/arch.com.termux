@@ -11,8 +11,10 @@ usage()
 Switch Aliases Start
 
 Show --++ v
+
 ++
 todo
+
 --
 edit
 progress
@@ -234,12 +236,11 @@ done
 
 __start(){
 
-echo -e '\e[1;32m'●'\e[m\n';
-# echo -e '\e[1;31m'⬤'\e[m\n';
+ echo -e '\n\e[1;32m'●'\e[m\n';
 
 if [[ $# == "0" ]]; then
 usage
-read -r -p "[×.-]/\/[ write.w ]" synt
+read -r -p "[×.-]/\/[ write.w ] " synt
 case $synt in
 "clear")
   clearAllTasks || exit 1
