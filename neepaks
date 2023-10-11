@@ -1,9 +1,7 @@
 #!/bin/bash/
-
-init_() {
- echo "      ___"
- echo "     /___\'"
- echo -e "::..|/   \ TWOGAPATS RANDOM [neepaks] -v-"
+ echo "× __                               [version.0.0.1]"
+ echo " /___\'                            / / / / / / / /"
+ echo -e "|/   \ :: TWOGAPATS RANDOM [neepaks] ::/nepaks -v-"
  echo
  echo "1) One only          "
  echo "2) Two digits        "
