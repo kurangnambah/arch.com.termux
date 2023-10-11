@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
-# Author: Alexander Epstein https://github.com/alexanderepstein
+# Author: Alexander https://github.com/alexander
+
 flag=""
 currentVersion="1.23.0"
 configuredClient=""
+
 usage()
 {
   cat <<EOF
 Switch Aliases Start
+
 Show --++ v
 ++
 todo
@@ -14,28 +17,14 @@ todo
 edit
 progress
 
-Description: A simplistic commandline todo list.
-Usage: todo [args] or todo [args] [task]
-  -c  Clear all the current tasks
-      Can also use clear instead of -c
-  -r  Remove the following task numbers seprated by spaces
-      Can also use remove instead of -r
-  -g  Get the current tasks
-      Can also use list instead of -g
-  -a  Add the following task
-      Can also use add instead of -a
-  -u  Update Bash-Snippet Tools
-  -h  Show the help
-  -v  Get the tool version
 Examples:
-   todo -a My very first task
-   todo remove 2
-   todo -r 1 3
-   todo add Another Task
-   todo list
-   todo -g
-   todo -c
-   todo clear
+  clear
+  update
+  help
+  add
+  remove
+  ...
+
 EOF
 }
 ## This function determines which http get tool the system has installed and returns an error if there isnt one
@@ -190,7 +179,7 @@ clearAllTasks()
 {
   rm -f ~/.todo/list.txt || return 1
   touch ~/.todo/list.txt || return 1
-  echo "Tasks cleared."
+  echo "Tasks sudah di bersihkan [×.|_>=====.+] whoosp."
 }
 
 while getopts "cr:a:guvh" opt; do
@@ -243,8 +232,40 @@ while getopts "cr:a:guvh" opt; do
   esac
 done
 
+__start(){
+
+echo -e '\e[1;32m'●'\e[m\n';
+# echo -e '\e[1;31m'⬤'\e[m\n';
+
 if [[ $# == "0" ]]; then
-  usage
+usage
+read -r -p "[×.-]/\/[ write.w ]" synt
+case $synt in
+"clear")
+  clearAllTasks || exit 1
+;;
+"update")
+    getConfiguredClient || exit 1
+    checkInternet || exit 1
+    update || exit 1
+    exit 0
+;;
+"help")
+    usage
+    exit 0
+;;
+"add")
+read -r -p ":: [ whats ] ketik apa .. ditambahkan ? /add" adduh
+addTask "$adduh" && getTasks || exit 1
+;;
+"remove")
+read -r -p ":: [ whats ] ketik apa .. dihapus ? /remove" remay
+removeTask "$remay" && getTasks || exit 1
+;;
+*)
+__start
+;;
+esac
 elif [[ $# == "1" ]]; then
   if [[ $1 == "clear" ]]; then
     clearAllTasks || exit 1
@@ -264,3 +285,6 @@ else
   elif [[ $flag == "remove" || $1 == "remove" ]]; then removeTask "${*:2}" && getTasks || exit 1
   else { usage; exit 1; }; fi
 fi
+}
+
+__start
