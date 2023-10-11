@@ -1,0 +1,49 @@
+#!/bin/bash/
+
+init_() {
+ echo "      ___"
+ echo "     /___\'"
+ echo -e "::..|/   \ TWOGAPATS RANDOM [neepaks] -v-"
+ echo
+ echo "1) One only          "
+ echo "2) Two digits        "
+ echo "3) Three digits      "
+ echo "...      "
+ rndm_it(){
+ read -r -p "enter the number++: " numopt
+ case $numopt in
+ 1)
+ # ONE ONLY
+ NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1)
+ echo $NUMBER
+ if [ "$NUMBER" == "" ];
+  then
+  echo  NUMBER=0
+ fi
+ ;;
+ 2)
+ # TWO 1+1 ::TWOAGAPATS
+ NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 2)
+ echo $NUMBER
+ if [ "$NUMBER" == "" ];
+  then
+  echo  NUMBER=0
+ fi
+ ;;
+ 3)
+ # THREE LERS ::TERELER-ELER
+ NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 3)
+ echo $NUMBER
+ if [ "$NUMBER" == "" ];
+  then
+  echo  NUMBER=0
+ fi
+ ;;
+ *)
+ clear; wait; init_; echo exit;;
+ esac
+ rndm_it
+ }
+ rndm_it
+}
+init_
