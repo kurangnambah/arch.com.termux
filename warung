@@ -1,13 +1,13 @@
 #!/bin/bash
 cat << EOF
-'.---------------------------------------------------------------------------.'
+".---------------------------------------------------------------------------.\n"
 '|________________________________________________________[ Warung Lite v0,0 ]'
 '|                                                       / / / / / / / / / / |'
 '|               __________________________                 6°               |'
 'warung ..      |                          |                                 |'
 '    ((|))      |                          |                                 |'
-'    //|\\\\      |                       ___|                                 |'
-'   ///|\\\\\     |          ______///////   |                                 |'
+'    //|\\\      |                       ___|                                 |'
+'   ///|\\\\\\     |          ______///////   |                                 |'
 '  ////|\\\\\\\\    |___///////                |               /////////////////\|'
 '  |\/\/\/\|    |                          |              //////////////////\\'
 '  |/\/\/\/|    |                          |             /|/\/\/\/\/\/\/\/||||'
@@ -16,14 +16,47 @@ cat << EOF
 '||||||||||||||||[||]..___________________.||..________|||||||||||||||||||||||'
 ============================================================================∆
 EOF
+
+if [ -e $PWD/.wr/sheet/* ]
+then
+if [ -d $PWD/.wr/sheet ]
+then
+cat  $PWD/.wr/sheet/*
+
+read -r -p "[ remv / no-default ] " func
+
+case $func in
+remv)
+rm -rf .wr
+;;
+*)
+clear
+bash warung
+;;
+esac
+fi
+else
+echo "[crt/y]:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::[•v•]"
+echo "[+stock+] stock 0!day _EVERY'DAY🙌_"
+read -r -p "[ stock / no-default ] " altw
+case $altw in
+stock )
+if [ ! -d .wr/sheet ]
+then
+ mkdir -p .wr/sheet
+ chmod 755 .wr
+fi
 read -r -p "[:-_] \0-9/ × input type number  .×. [ N° ] COLUMN .-> " coluy
 read -r -p "[:-_] \0-9/ × input type number  .×. [ N° ] ROW .-> " rowe
+
 clear
 
 x=0
 y=0
-echo -n ":: "
-#  table=$((i * no))
+
+echo -en "[ :: stock ][°-°\°|°/°-°] day stock sheet [ COLUMN/ROW [ $coluy/$rowe ] ] \n" >> $PWD/.wr/sheet/daystock
+echo -en "::" >> $PWD/.wr/sheet/daystock
+
 while [ $x -ne $coluy ]; do
 if [[ $x -lt $coluy ]]
  then
@@ -33,15 +66,21 @@ if [[ $x -lt $coluy ]]
  fi
  x=$((x + 1))
  column=$((x))
- echo -n "$column   "
+ echo -en "  $column   " >> $PWD/.wr/sheet/daystock
 fi
 done
-
 while [[ $y -ne $rowe ]]; do
 if [[ $y -le $rowe ]]
  then
   y=$((y + 1))
   row=$((y))
-  echo -e "$row \n"
+  echo -en "$row\n\n" >> $PWD/.wr/sheet/daystock
 fi
 done
+;;
+*)
+clear
+bash warung
+;;
+esac
+fi
