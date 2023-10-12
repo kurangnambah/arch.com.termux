@@ -3,10 +3,12 @@
 ! [rejected]        main -> main (non-fast-forward)
 error: failed to push some refs to
 ```
+#### note:if main: origin/main / if main: origin/master
 ### 1
-```git fetch```
+```git pull origin main```
 ### 2
-#### if main: origin/main
-```git rebase origin/main```
-#### if main: origin/master
+```git config pull.ff only```
+### 3
+```git fetch```
+### 4
 ```git rebase origin/main```
