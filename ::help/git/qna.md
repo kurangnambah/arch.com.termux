@@ -3,7 +3,10 @@
 ! [rejected]        main -> main (non-fast-forward)
 error: failed to push some refs to
 ```
-#### note:if main: origin/main / if main: origin/master
+---
+**NOTE**
+if main: origin/main && if main: origin/master
+---
 ### 1
 ```git pull origin main```
 ### 2
