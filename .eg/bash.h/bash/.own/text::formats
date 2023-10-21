@@ -10,12 +10,15 @@ row=0
 col=$(( ($(tput cols) - ${#text}) / 2))
 tput clear
 tput cup $row $col
-echo "$text
+echo "$text"
 }
 display_center(){
 COLUMNS=$(tput cols)
 title="Hello world!"
-printf "%*s\n" $(((${#title}+$COLUMNS)/2)) "$title"
+while true; do
+ printf "%*s\n" $(((${#title}+$COLUMNS)/2)) "$title"
+ clear
+done
 }
 display_center2(){
     columns="$(tput cols)"
