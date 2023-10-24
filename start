@@ -4,31 +4,38 @@
 flag=""
 currentVersion="1.23.0"
 configuredClient=""
-
-usage()
-{
-  cat <<EOF
-Switch Aliases Start
-
-Show --++ v
-
-++
-todo
-
---
-edit
-progress
-
-Examples:
-  clear
-  update
-  help
-  add
-  remove
-  ...
-
+usage(){
+cat <<EOF
+ Get Started
+ Todo++
+ --
 EOF
 }
+start__interface(){
+
+IFS=""
+PASS="test"
+
+ __init(){
+tput civis
+arr="-\|/"
+while true; do
+  for c in 90 31 91 32 33 34 35 95 36 97; do
+   echo -en "\e[${c}m ●   \e[33m ●   \e[32m ●  \e[0m"
+   echo -en "\e[${c}m KEY IS WRONG !! \e[0m\n"
+   echo -en "\e[${c}m ● ] todo  1)  disingkat.wr\e[0m\n\n"
+   echo -en "\e[${c}m           2)  neepaks \e[0m\n"
+   usage
+   printf "\b\e[${c}m ${arr:i++%${#arr}:1} \e[0m"
+   sleep .1
+   clear
+  done
+done
+tput cnorm
+ }
+  __init
+}
+
 ## This function determines which http get tool the system has installed and returns an error if there isnt one
 getConfiguredClient()
 {
@@ -191,33 +198,7 @@ while getopts "cr:a:guvh" opt; do
 done
 
 __start(){
-
-aR=('-' '\' '|' '/')
-w=( "0" )
-while true; do
-if [ $w == 0 ]
-then
- for l in 90 31 91 32 33 34 35 95 36 97; do
- #   lst=$l
- #   cjt=$c
- #   Ri=$R
-  echo -en "\e[${l}m ●   \e[33m ●   \e[32m ●  \e[0m \n \n"
-  echo -e "\e[33m ● \e[0m \n"
-  echo -e "\e[32m ● \e[0m \n"
-  sleep .1
-  clear
-done
-
-for c in "${aR[@]}"; do
-   echo -n "    "
-  for d in 90 31 91 32 33 34 35 95 36 97; do
-   echo -en "\r \e[${d}m $c \e[0m "
-   sleep .1
-  done
-done
-fi
-done
-read swtch
+ start__interface
 
 if [[ $# == "0" ]]; then
 usage

@@ -3,25 +3,31 @@
 ```
 ./start
 ```
+## Get Started
+---
+Todo++
+---
+```---```
+---
+Disingkat.Wr
+---
+```
+used/using:
+./warung or bash warung
+```
+---
+Neeppaks
+---
+```
+used/using:
+./neepaks or bash neepaks
+```
 
 ## How To Created
 
-![ whats_own_trf ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/trf.gif)
+![ trf ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/trf.gif)
 
-Show --++ v
-
-++
-
-```
-todo
-```
---
-```
-edit
-progress
-```
-
-## source, term condition etc
+```source, term condition etc```
 
 ### Thanks for :
 
