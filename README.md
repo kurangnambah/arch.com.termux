@@ -35,7 +35,7 @@ used/using:
 #1
 ----
 
-![ meme#1 ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/memes/memes#1.gif)
+![ meme#1 ](https://github.com/kurangnambah/arch.com.termux/blob/main/source/memes/memes%231.gif)
 
 ### Thanks for :
 
