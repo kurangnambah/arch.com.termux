@@ -8,12 +8,12 @@ echo "::  [mlt]  * multiplication  ::/*"
 read -r -p "[+/-/÷/*] × select typeof .-> " calc
 read -r -p "[::_] $n1 $calc input next typeof number to get.result .-> " n2
 case $calc in
-   +) echo "$n1 + $n2 = $(($n1 + $n2))"
+   add) echo "$n1 + $n2 = $(($n1 + $n2))"
    ;;
-   -) echo "$n1 - $n2 = $(($n1 - $n2))"
+   sub) echo "$n1 - $n2 = $(($n1 - $n2))"
    ;;
-   ÷) echo "$n1 / $n2 = $(($n1 / $n2))"
+   div) echo "$n1 / $n2 = $(($n1 / $n2))"
    ;;
-   *) echo "$n1 * $n2 = $(($n1 * $n2))"
+   mlt) echo "$n1 * $n2 = $(($n1 * $n2))"
    ;;
 esac

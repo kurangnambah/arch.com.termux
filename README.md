@@ -29,6 +29,14 @@ used/using:
 
 ```source, term condition etc```
 
+## Memes
+
+----
+#1
+----
+
+![ meme#1 ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/memes/memes#1.gif)
+
 ### Thanks for :
 
 ![ neepaks ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/neepaks.jpg) ![ disingkat.wr ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/disingkat-wr.png)
