@@ -1,0 +1,67 @@
+#!/bin/bash/
+
+ tput civis
+ arr="-\|/"
+ while true; do
+  for c in 90 31 91 32 33 34 35 95 36 97; do
+   printf "\b\e[${c}m ${arr:i++%${#arr}:1} \e[0m" read slect
+   if [[ $c == 31 && $c == 32 && $c == 33 ]]
+    then
+     echo -en "[ \e[${c}m ● \e[0m ${c}m 999 ]\n"
+    else
+     echo -en "[ \e[31m ● \e[0m ${c}m 999 ]\n"
+   fi
+   sleep .1
+   echo -e "\e[${c}m    ,--------------------------------[version.0.0.1] \e[0m"
+   echo -e "\e[${c}m  ,,--------------------------------[id.voltmeter]-\e[0m"
+   echo -e "\e[${c}m ,,,,,-----------------------------/ / / / / / / / \e[0m"
+   echo -e "\e[${c}m   ,,-----------------------------/ / / / / / / / \e[0m"
+   echo -e "\e[${c}m   ,------------------------------/ / / / / / / / \e[0m"
+   clear
+  done
+  done
+ tput cnorm
+ echo -e " :: TWOGAPATS RANDOM [neepaks] ::/nepaks -v-"
+ echo
+ echo "1) One only          "
+ echo "2) Two digits        "
+ echo "3) Three digits      "
+ echo "...      "
+ rndm_it(){
+ read -r -p "enter the number++: " numopt
+ case $numopt in
+ 1)
+ # ONE ONLY
+ NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1)
+ echo $NUMBER
+ if [ "$NUMBER" == "" ];
+  then
+  echo  NUMBER=0
+ fi
+ ;;
+ 2)
+ # TWO 1+1 ::TWOAGAPATS
+ NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 2)
+ echo $NUMBER
+ if [ "$NUMBER" == "" ];
+  then
+  echo  NUMBER=0
+ fi
+ ;;
+ 3)
+ # THREE LERS ::TERELER-ELER
+ NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 3)
+ echo $NUMBER
+ if [ "$NUMBER" == "" ];
+  then
+  echo  NUMBER=0
+ fi
+ ;;
+ *)
+ clear; wait; init_; echo exit;;
+ esac
+ rndm_it
+ }
+ rndm_it
+}
+init_
