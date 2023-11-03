@@ -1,44 +1,67 @@
 #!/bin/bash/
- echo "× __                               [version.0.0.1]"
- echo " /___\'                            / / / / / / / /"
- echo -e "|/   \ :: TWOGAPATS RANDOM [neepaks] ::/nepaks -v-"
- echo
- echo "1) One only          "
- echo "2) Two digits        "
- echo "3) Three digits      "
- echo "...      "
  rndm_it(){
- read -r -p "enter the number++: " numopt
+ echo "× __                                           [version.0.0.1]"
+ echo " /___\ / / / / / / / / / / / / / / / / / / / / / / / / / / / /"
+ echo -e "-/   \ :: RANDOM Number lets try .. [neepaks] ::/nepaks -v-"
+ echo
+ echo "1) One only          2) Two digits        3) Three digits     4) four digits"
+ echo
+ if [ ! -d .data/.nepak ]
+ then
+  mkdir -p .data/.nepak
+  chmod 755 .data/.nepak
+  echo -en "R E C E N T L Y   " >> $PWD/.data/.nepak/recently
+ fi
+ if [ -e $PWD/.data/.nepak/recently ]
+ then
+  cat $PWD/.data/.nepak/recently
+ fi
+ echo -en "\n\n"
+ read -r -p "enter the digit++ : " numopt
+ echo -en "\n\n"
  case $numopt in
  1)
  # ONE ONLY
  NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1)
- echo $NUMBER
+ echo -en "  $NUMBER   " >> $PWD/.data/.nepak/recently
  if [ "$NUMBER" == "" ];
   then
   echo  NUMBER=0
  fi
+ clear
  ;;
  2)
  # TWO 1+1 ::TWOAGAPATS
  NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 2)
- echo $NUMBER
+ echo -en "  $NUMBER   " >> $PWD/.data/.nepak/recently
  if [ "$NUMBER" == "" ];
   then
   echo  NUMBER=0
  fi
+ clear
  ;;
  3)
  # THREE LERS ::TERELER-ELER
  NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 3)
- echo $NUMBER
+ echo -en "  $NUMBER   " >> $PWD/.data/.nepak/recently
  if [ "$NUMBER" == "" ];
   then
   echo  NUMBER=0
  fi
+ clear
+ ;;
+ 4)
+ # FOUR FHOURS ::PATS-PATS
+ NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 4)
+ echo -en "  $NUMBER   " >> $PWD/.data/.nepak/recently
+ if [ "$NUMBER" == "" ];
+  then
+  echo  NUMBER=0
+ fi
+ clear
  ;;
  *)
- clear; wait; init_; echo exit;;
+ clear; wait; rndm_it; exit;;
  esac
  rndm_it
  }
