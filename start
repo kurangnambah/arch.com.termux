@@ -4,6 +4,7 @@
 flag=""
 currentVersion="1.23.0"
 configuredClient=""
+
 usage(){
 cat <<EOF
  Get Started
@@ -12,28 +13,30 @@ cat <<EOF
 EOF
 }
 start__interface(){
-
 IFS=""
 PASS="test"
-
  __init(){
 tput civis
 arr="-\|/"
 while true; do
-  for c in 90 31 91 32 33 34 35 95 36 97; do
-   echo -en "\e[${c}m ●   \e[33m ●   \e[32m ●  \e[0m"
-   echo -en "\e[${c}m KEY IS WRONG !! \e[0m\n"
-   echo -en "\e[${c}m ● ] todo  1)  disingkat.wr\e[0m\n\n"
-   echo -en "\e[${c}m           2)  neepaks \e[0m\n"
-   usage
-   printf "\b\e[${c}m ${arr:i++%${#arr}:1} \e[0m" read slect
-   sleep .1
-   clear
+normal=$(tput sgr0)
+#  echo -en "\e[${c}m ●   \e[33m ●   \e[32m ●  \e[0m"
+ for c in 90 31 91 32 33 34 35 95 36 97;
+  do
+    for setafC in 1 2 3 4 5 6 7;
+    do
+      columns=$(tput cols)
+      printf "%s %s %s %*s %s\n" "$(tput setaf $setafC) ●" "$(tput setaf 3)  ●" "$(tput setaf 2)  ●" $columns "$(tput setaf $setafC)@kurangnambah       "
+      echo -en "\b\e[${c}m ${arr:i++%${#arr}:1} \e[0m" && read slect
+      sleep .2
+      clear
+    done
   done
 done
 tput cnorm
- }
-  __init
+}
+clear
+__init
 }
 
 ## This function determines which http get tool the system has installed and returns an error if there isnt one
