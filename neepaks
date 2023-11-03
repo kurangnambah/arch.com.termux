@@ -1,16 +1,23 @@
 #!/bin/bash/
  rndm_it(){
- echo "× __                                           [version.0.0.1]"
- echo " /___\ / / / / / / / / / / / / / / / / / / / / / / / / / / / /"
- echo -e "-/   \ :: RANDOM Number lets try .. [neepaks] ::/nepaks -v-"
- echo
- echo "1) One only          2) Two digits        3) Three digits     4) four digits"
- echo
+ while true; do
+ RED=$(tput setaf 1)
+ GREEN=$(tput setaf 2)
+ NORMAL=$(tput sgr0)
+ MSG="× __"
+ let COL=$(tput cols)-${#MSG}+${#GREEN}+${#NORMAL}
+  printf "%s%${COL}s" "$MSG" "$GREEN[version.0.0.1]$NORMAL"
+  printf "%s%${COL}s" " /___\\" "$GREEN/ / / / / / / /  $NORMAL"
+# echo -e "-/   \ :: RANDOM Number lets try .. [neepaks] ::/nepaks [ ... ] -v-\n"
+# echo -e "1) One only          2) Two digits        3) Three digits     4) four digits \n"
+  sleep .2
+  clear
+ done
  if [ ! -d .data/.nepak ]
  then
   mkdir -p .data/.nepak
   chmod 755 .data/.nepak
-  echo -en "R E C E N T L Y   " >> $PWD/.data/.nepak/recently
+  echo -en "G E N E R A T E \n\n" >> $PWD/.data/.nepak/recently
  fi
  if [ -e $PWD/.data/.nepak/recently ]
  then
@@ -65,6 +72,4 @@
  esac
  rndm_it
  }
- rndm_it
-}
-init_
+rndm_it
