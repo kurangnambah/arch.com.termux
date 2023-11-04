@@ -25,7 +25,7 @@ used/using:
 
 ## How To Created
 
-![ trf ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/trf.gif)
+![ trf ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/tree/trf.gif)
 
 ```source, term condition etc```
 
@@ -35,9 +35,9 @@ used/using:
 #1
 ----
 
-![ meme#1 ](https://github.com/kurangnambah/arch.com.termux/blob/main/source/memes/memes%231.gif)
+![ meme#1 ](https://github.com/kurangnambah/arch.com.termux/blob/main/source/tree/memes/memes%231.gif)
 
 ### Thanks for :
 
-![ neepaks ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/neepaks.jpg) ![ disingkat.wr ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/disingkat-wr.png)
+![ neepaks ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/tree/neepaks.jpg) ![ disingkat.wr ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/tree/disingkat-wr.png)
 
