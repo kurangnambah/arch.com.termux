@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# make rwcent.
+
+rndm_it(){
+ tput civis
+ while true; do
+ RED=$(tput setaf 1)
+ GREEN=$(tput setaf 2)
+ YELL=$(tput setaf 3)
+ NORMAL=$(tput sgr0)
+ MSG="> sebuah nilai dikatakan , "
+ MSG1="┊ apabila memiliki hasil yang berbeda dari nilai sebelum-nya"
+ MSG2="0 inf/po:                                                       o/×"
+ MSG3="1. [add]  + addition        ::/+   3. [div]  / dvision         ::/÷"
+ MSG4="2. [sub]  - substraction    ::/-   4. [mlt]  * multiplication  ::/*"
+ let COL=$(tput cols)-${#MSG}+${#GREEN}+${#NORMAL}
+ let COL1=$(tput cols)-${#MSG1}+${#GREEN}+${#NORMAL}
+ let COL2=$(tput cols)-${#MSG2}+${#GREEN}+${#NORMAL}
+ let COL3=$(tput cols)-${#MSG3}+${#GREEN}+${#NORMAL}
+ let COL4=$(tput cols)-${#MSG4}+${#GREEN}+${#NORMAL}
+  printf "%s%${COL}s\n" "$MSG" "$GREEN•$NORMAL"
+  printf "%s%${COL1}s\n" "$MSG1" "$YELL•$NORMAL"
+  printf "%s%${COL2}s\n" "$MSG2" "$RED•$NORMAL"
+  printf "%s%${COL3}s\n" "$MSG3" ""
+  printf "%s%${COL4}s\n" "$MSG4" ""
+ if [ ! -d .data/.kalku ]
+ then
+  mkdir -p .data/.kalku
+  chmod 755 .data/.nepak
+  echo -en "-- rwcent \n\n" >> $PWD/.data/.kalku/rwcent
+ fi
+ if [ -e $PWD/.data/.kalku/rwcent ]
+ then
+  cat $PWD/.data/.kalku/rwcent
+ fi
+ echo -en "\n"
+
+# option
+
+read -r -p "[::_] [calc] × first input type of number here .. .×. \0-9/ .-> " n1
+read -r -p "[ "$n1" ] (+[add]/-[sub]/÷[div]/*[mlt]) × select typeof .-> " calc
+read -r -p "[:: $n1 $calc _ ] input next typeof number to get.result .-> " n2
+
+# make A Make
+
+case $calc in
+   add) echo -en "$n1 + $n2 = $(($n1 + $n2))  " >> $PWD/.data/.kalku/rwcent;;
+   sub) echo -en "$n1 - $n2 = $(($n1 - $n2))  " >> $PWD/.data/.kalku/rwcent;;
+   div) echo -en "$n1 / $n2 = $(($n1 / $n2))  " >> $PWD/.data/.kalku/rwcent;;
+   mlt) echo -en "$n1 * $n2 = $(($n1 * $n2))  " >> $PWD/.data/.kalku/rwcent;;
+esac
+
+echo -en "\n"
+
+# END
+ sleep .2
+# rndm_it
+ done
+ tput cnorm
+ }
+rndm_it
