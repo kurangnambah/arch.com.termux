@@ -46,5 +46,6 @@ used/using:
 
 ### Thanks for :
 
-![ neepaks ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/tree/neepaks.jpg) ![ disingkat.wr ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/tree/disingkat-wr.png) ![ kalku ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/tree/kalku.jpg)
+![ neepaks ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/tree/neepaks.jpg) ![ disingkat.wr ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/tree/disingkat-wr.png)
+![ kalku ](https://raw.githubusercontent.com/kurangnambah/arch.com.termux/main/source/tree/kalku.jpg)
 
