@@ -9,9 +9,11 @@ rndm_it(){
  GREEN=$(tput setaf 2)
  YELL=$(tput setaf 3)
  NORMAL=$(tput sgr0)
+ TRF="●"
+ arr="-\|/"
  MSG="> sebuah nilai dikatakan , "
  MSG1="┊ apabila memiliki hasil yang berbeda dari nilai sebelum-nya"
- MSG2="0 inf/po:                                                       o/×"
+ MSG2="0 inf/po:"
  MSG3="1. [add]  + addition        ::/+   3. [div]  / dvision         ::/÷"
  MSG4="2. [sub]  - substraction    ::/-   4. [mlt]  * multiplication  ::/*"
  let COL=$(tput cols)-${#MSG}+${#GREEN}+${#NORMAL}
@@ -19,43 +21,53 @@ rndm_it(){
  let COL2=$(tput cols)-${#MSG2}+${#GREEN}+${#NORMAL}
  let COL3=$(tput cols)-${#MSG3}+${#GREEN}+${#NORMAL}
  let COL4=$(tput cols)-${#MSG4}+${#GREEN}+${#NORMAL}
-  printf "%s%${COL}s\n" "$MSG" "$GREEN•$NORMAL"
-  printf "%s%${COL1}s\n" "$MSG1" "$YELL•$NORMAL"
-  printf "%s%${COL2}s\n" "$MSG2" "$RED•$NORMAL"
-  printf "%s%${COL3}s\n" "$MSG3" ""
-  printf "%s%${COL4}s\n" "$MSG4" ""
- if [ ! -d .data/.kalku ]
- then
-  mkdir -p .data/.kalku
-  chmod 755 .data/.nepak
-  echo -en "-- rwcent \n\n" >> $PWD/.data/.kalku/rwcent
- fi
- if [ -e $PWD/.data/.kalku/rwcent ]
- then
-  cat $PWD/.data/.kalku/rwcent
- fi
- echo -en "\n"
+#### ...
 
-# option
-
-read -r -p "[::_] [calc] × first input type of number here .. .×. \0-9/ .-> " n1
-read -r -p "[ "$n1" ] (+[add]/-[sub]/÷[div]/*[mlt]) × select typeof .-> " calc
-read -r -p "[:: $n1 $calc _ ] input next typeof number to get.result .-> " n2
-
-# make A Make
-
-case $calc in
-   add) echo -en "$n1 + $n2 = $(($n1 + $n2))  " >> $PWD/.data/.kalku/rwcent;;
-   sub) echo -en "$n1 - $n2 = $(($n1 - $n2))  " >> $PWD/.data/.kalku/rwcent;;
-   div) echo -en "$n1 / $n2 = $(($n1 / $n2))  " >> $PWD/.data/.kalku/rwcent;;
-   mlt) echo -en "$n1 * $n2 = $(($n1 * $n2))  " >> $PWD/.data/.kalku/rwcent;;
-esac
-
-echo -en "\n"
+while true; do
+ for c in 90 31 91 32 33 34 35 95 36 97;
+  do
+    for setafC in 1 2 3 4 5 6 7;
+    do
+      columns=$(tput cols)
+    #  printf "%s %s %s %*s %s\n" "$(tput setaf $setafC) ●" "$(tput setaf 3)  ●" "$(tput setaf 2)  ●" $columns"$(tput setaf $setafC)@kurangnambah       "
+      echo -en "\b\e[${c}m ${arr:i++%${#arr}:1} \e[0m"
+      sleep .4
+     ##
+      printf "%s%${COL}s\n" "$MSG" "$GREEN●$NORMAL"
+      printf "%s%${COL1}s\n" "$MSG1" "●●●$NORMAL"
+      printf "%s%${COL2}s\n" "$MSG2" ""
+      printf "%s%${COL3}s\n" "$MSG3" ""
+      printf "%s%${COL4}s\n" "$MSG4" ""
+     if [ ! -d .data/.kalku ]
+      then
+       mkdir -p .data/.kalku
+       chmod 755 .data/.nepak
+       echo -en "-- rwcent \n\n" >> $PWD/.data/.kalku/rwcent
+     fi
+     if [ -e $PWD/.data/.kalku/rwcent ]
+      then
+       cat $PWD/.data/.kalku/rwcent
+     fi
+     echo -en "\n"
+  # option
+     read -r -p "[::_] [calc] × first input type of number here .. .×. \0-9/ .-> " n1
+     read -r -p "[ "$n1" ] (+[add]/-[sub]/÷[div]/*[mlt]) × select typeof .-> " calc
+     read -r -p "[:: $n1 $calc _ ] input next typeof number to get.result .-> " n2
+  # make A Make
+   case $calc in
+     add) echo -en "$n1 + $n2 = $(($n1 + $n2))  " >> $PWD/.data/.kalku/rwcent;;
+     sub) echo -en "$n1 - $n2 = $(($n1 - $n2))  " >> $PWD/.data/.kalku/rwcent;;
+     div) echo -en "$n1 / $n2 = $(($n1 / $n2))  " >> $PWD/.data/.kalku/rwcent;;
+     mlt) echo -en "$n1 * $n2 = $(($n1 * $n2))  " >> $PWD/.data/.kalku/rwcent;;
+   esac
+    echo -en "\n"
+   done
+  done
+ done
 
 # END
  sleep .2
-# rndm_it
+ clear
  done
  tput cnorm
  }
