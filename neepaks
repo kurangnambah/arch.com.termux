@@ -4,27 +4,32 @@
  while true; do
  RED=$(tput setaf 1)
  GREEN=$(tput setaf 2)
+ COLOR=$(tput setaf 9)
+ COLOR1=$(tput setaf 4)
  NORMAL=$(tput sgr0)
- MSG=" × __"
- MSG1=" /___\\"
- MSG2="-/   \\"
+ MSG="neepaks ┊"
+ MSG1=" × __"
+ MSG2=" /___\\"
+ MSG3="-/   \\"
  let COL=$(tput cols)-${#MSG}+${#GREEN}+${#NORMAL}
  let COL1=$(tput cols)-${#MSG1}+${#GREEN}+${#NORMAL}
  let COL2=$(tput cols)-${#MSG2}+${#GREEN}+${#NORMAL}
-  printf "%s%${COL}s\n" "$MSG" "$GREEN[version.0.0.1]$NORMAL"
-  printf "%s%${COL1}s\n" "$MSG1" "$GREEN  /  /  /  /  /  /$NORMAL"
-  printf "%s%${COL2}s\n\n" "$MSG2" "$GREEN/  /  /  /  /  /  $NORMAL"
+ let COL3=$(tput cols)-${#MSG3}+${#GREEN}+${#NORMAL}
+  printf "%s%${COL}s\n" "$COLOR$MSG$NORMAL" "$COLOR1[version.0.0.1]$NORMAL"
+  printf "%s%${COL}s\n" "$MSG1     " "$GREEN/  /  /  /  /  / $NORMAL"
+  printf "%s%${COL1}s\n" "$MSG2" "$GREEN/  /  /  /  /  / $NORMAL"
+  printf "%s%${COL2}s\n\n" "$MSG3" "$GREEN/  /  /  /  /  /  $NORMAL"
 # echo -e "-/   \ :: RANDOM Number lets try .. [neepaks] ::/nepaks [ ... ] -v-\n"
 # echo -e "1) One only          2) Two digits        3) Three digits     4) four digits \n"
- if [ ! -d .data/.nepak ]
+ if [ ! -d .data/.neepaks ]
  then
-  mkdir -p .data/.nepak
-  chmod 755 .data/.nepak
-  echo -en "G E N E R A T E \n\n" >> $PWD/.data/.nepak/recently
+  mkdir -p .data/.neepaks
+  chmod 755 .data/.neepaks
+  echo -en "Generate 2D 3D 4D ... \n\n" >> $PWD/.data/.neepaks/recent
  fi
- if [ -e $PWD/.data/.nepak/recently ]
+ if [ -e $PWD/.data/.neepaks/recent ]
  then
-  cat $PWD/.data/.nepak/recently
+  cat $PWD/.data/.neepaks/recent
  fi
  echo -en "\n\n"
  read -r -p "[ ¹⁻⁴ ] enter the digit++ : " numopt
@@ -33,7 +38,7 @@
  1)
  # ONE ONLY
  NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | head --bytes 1)
- echo -en "$NUMBER\t" >> $PWD/.data/.nepak/recently
+ echo -en "$NUMBER\t" >> $PWD/.data/.neepaks/recent
  if [ "$NUMBER" == "" ];
   then
   echo  NUMBER=0
@@ -43,7 +48,7 @@
  2)
  # TWO 1+1 ::TWOAGAPATS
  NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 2)
- echo -en "$NUMBER\t" >> $PWD/.data/.nepak/recently
+ echo -en "$NUMBER\t" >> $PWD/.data/.neepaks/recent
  if [ "$NUMBER" == "" ];
   then
   echo  NUMBER=0
@@ -53,7 +58,7 @@
  3)
  # THREE LERS ::TERELER-ELER
  NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 3)
- echo -en "$NUMBER\t" >> $PWD/.data/.nepak/recently
+ echo -en "$NUMBER\t" >> $PWD/.data/.neepaks/recent
  if [ "$NUMBER" == "" ];
   then
   echo  NUMBER=0
@@ -63,7 +68,7 @@
  4)
  # FOUR FHOURS ::PATS-PATS
  NUMBER=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 4)
- echo -en "$NUMBER\t" >> $PWD/.data/.nepak/recently
+ echo -en "$NUMBER\t" >> $PWD/.data/.neepaks/recent
  if [ "$NUMBER" == "" ];
   then
   echo  NUMBER=0

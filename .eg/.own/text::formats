@@ -1,5 +1,4 @@
 #!/usr/bin/bash
-
 lowercase(){
 echo -n "Enter String Uppercase: "
 read -r i
@@ -32,3 +31,7 @@ display_right(){
         printf "%*s\n" $columns "$line"
     done < "$1"
 }
+# display_echo
+# display_center
+# display_center2
+ display_right

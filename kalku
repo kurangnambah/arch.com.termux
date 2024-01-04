@@ -3,6 +3,7 @@
 # make rwcent.
 
 rndm_it(){
+ clear
  tput civis
  while true; do
  RED=$(tput setaf 1)
@@ -12,15 +13,16 @@ rndm_it(){
  TRF="●"
  arr="-\|/"
  MSG="> sebuah nilai dikatakan , "
- MSG1="┊ apabila memiliki hasil yang berbeda dari nilai sebelum-nya"
+ MSG1="$GREEN$TRF$NORMAL apabila memiliki hasil yang berbeda dari nilai sebelum-nya"
  MSG2="0 inf/po:"
  MSG3="1. [add]  + addition        ::/+   3. [div]  / dvision         ::/÷"
  MSG4="2. [sub]  - substraction    ::/-   4. [mlt]  * multiplication  ::/*"
- let COL=$(tput cols)-${#MSG}+${#GREEN}+${#NORMAL}
+ let COL=$(tput cols)-${#Header}+${#GREEN}+${#NORMAL}
  let COL1=$(tput cols)-${#MSG1}+${#GREEN}+${#NORMAL}
  let COL2=$(tput cols)-${#MSG2}+${#GREEN}+${#NORMAL}
  let COL3=$(tput cols)-${#MSG3}+${#GREEN}+${#NORMAL}
  let COL4=$(tput cols)-${#MSG4}+${#GREEN}+${#NORMAL}
+
 #### ...
 
 while true; do
@@ -29,12 +31,11 @@ while true; do
     for setafC in 1 2 3 4 5 6 7;
     do
       columns=$(tput cols)
-    #  printf "%s %s %s %*s %s\n" "$(tput setaf $setafC) ●" "$(tput setaf 3)  ●" "$(tput setaf 2)  ●" $columns"$(tput setaf $setafC)@kurangnambah       "
       echo -en "\b\e[${c}m ${arr:i++%${#arr}:1} \e[0m"
+      echo -en "\b\e[${c}m kalku ┊ \e[0m" "$MSG\n"
       sleep .4
      ##
-      printf "%s%${COL}s\n" "$MSG" "$GREEN●$NORMAL"
-      printf "%s%${COL1}s\n" "$MSG1" "●●●$NORMAL"
+      echo -en "\b\e[${c}m" " v.0.0.1 ┊ \e[0m" "$MSG1\n"
       printf "%s%${COL2}s\n" "$MSG2" ""
       printf "%s%${COL3}s\n" "$MSG3" ""
       printf "%s%${COL4}s\n" "$MSG4" ""
@@ -47,6 +48,7 @@ while true; do
      if [ -e $PWD/.data/.kalku/rwcent ]
       then
        cat $PWD/.data/.kalku/rwcent
+       echo -en "\n"
      fi
      echo -en "\n"
   # option
@@ -54,12 +56,13 @@ while true; do
      read -r -p "[ "$n1" ] (+[add]/-[sub]/÷[div]/*[mlt]) × select typeof .-> " calc
      read -r -p "[:: $n1 $calc _ ] input next typeof number to get.result .-> " n2
   # make A Make
-   case $calc in
+    case $calc in
      add) echo -en "$n1 + $n2 = $(($n1 + $n2))  " >> $PWD/.data/.kalku/rwcent;;
      sub) echo -en "$n1 - $n2 = $(($n1 - $n2))  " >> $PWD/.data/.kalku/rwcent;;
      div) echo -en "$n1 / $n2 = $(($n1 / $n2))  " >> $PWD/.data/.kalku/rwcent;;
      mlt) echo -en "$n1 * $n2 = $(($n1 * $n2))  " >> $PWD/.data/.kalku/rwcent;;
-   esac
+     *) rndm_it clear;;
+     esac
     echo -en "\n"
    done
   done
